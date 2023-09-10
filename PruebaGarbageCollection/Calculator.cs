@@ -23,11 +23,14 @@ namespace PruebaGarbageCollection
 
         public void Dispose()
         {
-            if (!disposed)
-                Console.WriteLine("Calculator being disposed");
+            lock (this)
+            {
+                if (!disposed)
+                    Console.WriteLine("Calculator being disposed");
 
-            disposed = true;
-            GC.SuppressFinalize(this);
+                disposed = true;
+                GC.SuppressFinalize(this);
+            }
         }
 
         public int Divide(int first, int second)
